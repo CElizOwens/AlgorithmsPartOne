@@ -1,5 +1,3 @@
-//import edu.princeton.cs.algs4.WeightedQuickUnionUF;
-
 /** Need an additional private attribute for recording
   * the state of a site as full. Also, add to 'open()'
   * method OR create another private method to assign
@@ -41,6 +39,7 @@
   * 
   */
 
+import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 import edu.princeton.cs.algs4.StdOut;
 
 public class Percolation {
