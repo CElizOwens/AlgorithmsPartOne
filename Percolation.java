@@ -48,20 +48,24 @@ public class Percolation {
   private int[] state;
   private int side;
   private int numopen;
-  private boolean percolates;
+  private int top;
+  private int bottom;
   
   // Constructor
   public Percolation(int n)
   // create n-by-n grid, with all sites blocked
   {
-      grid = new WeightedQuickUnionUF(n * n);
+      grid = new WeightedQuickUnionUF(n * n + 2);
       side = n;
       numopen = 0;
-      percolates = false;
-      state = new int[n * n];
+      state = new int[n * n + 2];
       for (int x = 0; x < (n * n); x++) {
-          state[x] = 0;  // blocked=0, open=1, full=2
-    }
+          state[x] = 0;  // blocked=0, open=1
+      }
+      state[n * n] = 1;
+      state[n * n + 1] = 1;
+      top = n * n;
+      bottom = n * n + 1;
   }
           
   // converts 'row, col' to index for 'state' and 'grid'
@@ -116,42 +120,22 @@ public class Percolation {
   // set state to '1'; set to '2' if row == 1
   public void open(int row, int col) {
       validate(row, col);
+      state[index(row, col)] = 1;
       if (row == 1) {
-          state[index(row, col)] = 2;
+          grid.union(index(row, col), top);
       }
-      else {
-      state[index(row, col)] = 1;   // assigning '1', which means 'open'
+      if (row == side) {
+          grid.union(index(row, col), bottom);
       }
       numopen++;
-      union_conditionals(row, col);
-      
-      // *** states not changing to full ***
-      
-      // updates states of new component
-  }   // designates as full...?
+      union_conditionals(row, col);   
+  }
   
   //unite all adjacent open sites
   private void tryunite(int site, int adj) {
       if (isOpen(siterow(adj), sitecol(adj))) {
           grid.union(site, adj);
-          fill(site, adj);
       }
-  }
-  
-  // update appropriate site states to 'full'
-  private void fill(int site, int adj) {
-      if (state[site] == 2 ^ state[adj] == 2) {
-          for (int x = 0; x < state.length; x++) {
-              if (grid.find(x) == grid.find(site) && state[x] < 2) {
-                  state[x] = 2;
-                  if (percolates == false && x >= side * (side - 1)) {
-                      if (state[x] == 2) {
-                          percolates = true;
-                      }
-                 }
-             }
-         }
-     }
   }
   
   // find possible unions per site's position
@@ -179,13 +163,13 @@ public class Percolation {
   // is site (row, col) open?
   public boolean isOpen(int row, int col) {
       validate(row, col);
-      return state[index(row, col)] > 0;
+      return state[index(row, col)] == 1;
   }
   
   // is site (row, col) full?
   public boolean isFull(int row, int col) {
       validate(row, col);
-      return state[index(row, col)] == 2;
+      return grid.find(index(row, col)) == grid.find(top);
   }
   
   // returns number of open sites
@@ -194,7 +178,7 @@ public class Percolation {
   }
   
   public boolean percolates() {            // does the system percolate?
-      return percolates;
+      return grid.find(bottom) == grid.find(top);
   }
 
   public static void main(String[] args) {  // test client (optional)

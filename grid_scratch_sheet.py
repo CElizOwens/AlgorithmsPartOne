@@ -119,3 +119,64 @@ print("bottom: {}".format(mygrid.bottom_site(4, 2)))
 
 	# (23 - 1) % 5 + 1 = 3
 	# (25 - 1) % 5 + 1 = 5
+# =====================================================
+
+
+# 1) Eliminating 'state[x] = 2' and 'fill()'
+# 2) Reworking grid to have two virtual nodes (top and bottom)
+# 3) subsequentially adjusting the way 'isFull()' functions
+# 4) and adjusting how percolates() determines percolation.
+
+# (1)
+# Adding two virtual nodes to grid--
+# n * n (top) and n * n + 1 (bottom).
+# Thusly, in constructor, adjust:
+
+# 'grid = new WeightedQuickUnionUF(n * n + 2);'
+# 'state = new int[n * n + 2];' // number of indices!
+
+# Manually open the virtual sites; no union() call:
+# (otherwise, using 'open()' automatically calls 'union()')
+# // This insures passing the one-by-one grid test.
+# 'state[n * n] = 1;' // second to last index (top).
+# 'state[n * n + 1] = 1;' // last index (bottom)
+
+# Add: 'int top = n * n;' // top virtual node index
+#      'int bottom = n * n + 1;' // bottom virt node index
+
+
+# =============================================
+# DONE
+
+# // When any site in row n (or 'side') opens,
+# // it will be united with site 'bottom'.
+
+# Delete variable 'percolates'.
+# Adjustment to 'percolates()' shown at end of notes.
+
+# Will now have state[x] only signify:
+# blocked = '0' or open = '1'.
+# // 'validate()' will never allow the last two indices
+# // of 'state' or 'grid' to be called.
+
+# Change 'open()' to the below:
+# // this accommodates the one-by-one grid problem
+#
+# 'state[index(row, col)] = 1;
+#  if (row == 1) {
+#      grid.union(index(row, col), top);
+#  }
+#  if (row == side) {
+#      grid.union(index(row, col), bottom);
+#  }
+#  numopen++;
+#  union_conditionals(row, col);'
+
+# isOpen():
+# 'return state[index(row, col)] == 1;'
+
+# isFull():
+# 'return root(index(row, col)) == root(top);'
+
+# percolates():
+# 'return root(bottom) == root(top);'
