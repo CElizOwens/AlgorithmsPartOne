@@ -1,5 +1,29 @@
 #usr/bin/env python3
 
+# Tests left to pass: 3 (plus a few checkstyle warnings):
+
+# custom checkstyle for PercolationStats:
+# 'Integer.parseInt' must be called (how?) for
+# the two integer command-line arguments
+
+#---------------------------------
+# >>> This is the last of the graded parts to fix <<<
+#     Correctness of Percolation:
+#        Tests 16 - 18: backwash
+#---------------------------------
+
+# Bonus (not counted):
+# Analyzing memory of Percolation.
+# Test 2. Only passes if backwash is eliminated.
+
+
+
+
+
+
+
+
+# ====================================================
 # Function takes n, the length of a row.
 # Grid is n * n.
 # Compute col and row coordinates from a given site's site number (or index).

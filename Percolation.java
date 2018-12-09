@@ -43,27 +43,26 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 import edu.princeton.cs.algs4.StdOut;
 
 public class Percolation {
-  private WeightedQuickUnionUF grid;
-  private int n;
-  private int[] state;
-  private int side;
+  private final WeightedQuickUnionUF grid;
+  private boolean[] state;
+  private final int side;
   private int numopen;
-  private int top;
-  private int bottom;
+  private final int top;
+  private final int bottom;
   
   // Constructor
   public Percolation(int n)
   // create n-by-n grid, with all sites blocked
   {
+      if (n < 1) {
+          throw new IllegalArgumentException(n + " is less than 1. Invalid.");
+      }
       grid = new WeightedQuickUnionUF(n * n + 2);
       side = n;
       numopen = 0;
-      state = new int[n * n + 2];
-      for (int x = 0; x < (n * n); x++) {
-          state[x] = 0;  // blocked=0, open=1
-      }
-      state[n * n] = 1;
-      state[n * n + 1] = 1;
+      state = new boolean[n * n + 2];
+      state[n * n] = true;
+      state[n * n + 1] = true;
       top = n * n;
       bottom = n * n + 1;
   }
@@ -84,22 +83,22 @@ public class Percolation {
   }
   
   
-  //right
+  // right
   private int right(int x, int y) {
       return index(x, y) + 1;
   }
   
-  //left
+  // left
   private int left(int x, int y) {
       return index(x, y) - 1;
   }
   
-  //top
+  // top
   private int top(int x, int y) {
       return index(x, y) - side;
   }
   
-  //bottom
+  // bottom
   private int bottom(int x, int y) {
       return index(x, y) + side;
   }
@@ -117,29 +116,43 @@ public class Percolation {
 
   
   // open site (row, col) if it is not open already
-  // set state to '1'; set to '2' if row == 1
+  // set state to 'true'
   public void open(int row, int col) {
       validate(row, col);
-      state[index(row, col)] = 1;
-      if (row == 1) {
-          grid.union(index(row, col), top);
+      if (!isOpen(row, col)) {
+          state[index(row, col)] = true;
+          if (row == 1) {
+              grid.union(index(row, col), top);
+          }
+          if (row == side) {
+              grid.union(index(row, col), bottom);
+          }
+          numopen++;
+          unionConditionals(row, col);
       }
-      if (row == side) {
-          grid.union(index(row, col), bottom);
-      }
-      numopen++;
-      union_conditionals(row, col);   
   }
   
-  //unite all adjacent open sites
+  // unite all adjacent open sites
   private void tryunite(int site, int adj) {
       if (isOpen(siterow(adj), sitecol(adj))) {
           grid.union(site, adj);
       }
   }
   
+  // Beginning of possible solution for backwash.
+  // tests 16 - 18 failed, backwash bonus question failed.
+  // This part to be implemented in 'tryunite()':
+                
+/* b = bottom; a = component; First time bottom vsite is touched.
+ * For component a <= 1, in row = 'side':
+ * 'union(a, b);' Sets bottom virt site's root to a's root.
+ * Reset b's root to b
+ * 
+ */
+              
+  
   // find possible unions per site's position
-  private void union_conditionals(int row, int col) {
+  private void unionConditionals(int row, int col) {
       int orig = index(row, col);
       if (row < side) {
           tryunite(orig, bottom(row, col));
@@ -155,7 +168,7 @@ public class Percolation {
       }
   }
   
-  //connected
+  // connected
   private boolean connected(int a, int b) {
       return this.grid.connected(a, b);
   }
@@ -163,13 +176,13 @@ public class Percolation {
   // is site (row, col) open?
   public boolean isOpen(int row, int col) {
       validate(row, col);
-      return state[index(row, col)] == 1;
+      return state[index(row, col)];
   }
   
   // is site (row, col) full?
   public boolean isFull(int row, int col) {
       validate(row, col);
-      return grid.find(index(row, col)) == grid.find(top);
+      return grid.connected(index(row, col), top);
   }
   
   // returns number of open sites
@@ -178,7 +191,7 @@ public class Percolation {
   }
   
   public boolean percolates() {            // does the system percolate?
-      return grid.find(bottom) == grid.find(top);
+      return grid.connected(bottom, top);
   }
 
   public static void main(String[] args) {  // test client (optional)

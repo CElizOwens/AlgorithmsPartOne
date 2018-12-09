@@ -4,60 +4,82 @@ import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
 
 public class PercolationStats {
+
+private final int trials;
+private final double[] thresharray;
+private final static double conf = 1.96;
+private final double mean;
+private final double stddev;
+// private double opensites;
+
    public PercolationStats(int n, int trials) {  // perform trials independent experiments on an n-by-n grid
-       private double[] thresharray = new double[n * n]; // array of all percolation threshholds
-       private double[] threshsum = 0;
+       if (n <= 0) {
+           throw new IllegalArgumentException(n + "is less than 1. Invalid.");
+       }
+       if (trials <= 0) {
+           throw new IllegalArgumentException(trials + "is less than 1. Invalid.");
+       }
+       this.trials = trials;
+       int row, col;
+       final double numsites = n * n;
+       thresharray = new double[trials]; // array of all percolation threshholds
        for (int x = 0; x < trials; x++) {
            Percolation sample = new Percolation(n);
-           double percthresh = 0;
-           while (sample.percolates() == false) {
-               sample.open(StdRandom.uniform(n) + 1, StdRandomuniform(n) + 1);
+           while (!sample.percolates()) {
+               row = StdRandom.uniform(n) + 1;
+               col = StdRandom.uniform(n) + 1;
+               if (!sample.isOpen(row, col)) {
+                   sample.open(row, col);
+               }
            }
-           percthresh = sample.numberOfOpenSites() / (n * n);
-           thresharray[x] = percthresh;
-           threshsum += percthresh;
+           // for testing
+//           opensites = sample.numberOfOpenSites();
+           thresharray[x] = sample.numberOfOpenSites() / (numsites);
+//           StdOut.println("open sites and threshhold = " +
+//                          opensites + ", " + thresharray[x]);
        }
-       // The below are not necessary inside of the constructor.
-       // The test client will call these, itself. (?)
-//       mean(threshsum, trials);
-//       stddev();
-//       confidenceLo();
-//       confidenceHi();
+       mean = StdStats.mean(thresharray);
+       stddev = StdStats.stddev(thresharray);
    }
    
-   public double mean() {                        // sample mean of percolation threshold
-       return threshsum / t;
+   // sample mean of percolation threshold
+   public double mean() {
+       return mean;
    }
    
-   public double stddev() {                      // sample standard deviation of percolation threshold
-       double z = mean();
-       double square = 0;
-       for (int x = 0; x > t; x++) {
-           square += x - z;
-       }
-       
-       // *** STOPPED HERE ***
-       return // square root of 'square';
-              // 'square' represents 's squared' in the assignment instructions
-           
+   // sample standard deviation of percolation threshold
+   public double stddev() {
+       return stddev;
    }
    
-   public double confidenceLo() {                // low  endpoint of 95% confidence interval
-       
+   // low  endpoint of 95% confidence interval
+   public double confidenceLo() {
+//       StdOut.println("trials                  = " + trials);
+       return mean - conf * stddev / Math.sqrt(trials);
    }
    
-   public double confidenceHi() {                // high endpoint of 95% confidence interval
-           
+   // high endpoint of 95% confidence interval
+   public double confidenceHi() {
+//       StdOut.println("trials                  = " + trials);
+       return mean + conf * stddev / Math.sqrt(trials);
    }
 
-   public static void main(String[] args) {       // test client (described below)
-       int n = StdIn.readInt(); // grid size (n * n)
+   
+   // test client
+   public static void main(String[] args) {
+       // Still don't understand how to fix:
+   /* [WARN] PercolationStats.java:1: The number (0) of calls to 
+    * 'Integer.parseInt()' must equal the number (2) of integer 
+    * command-line arguments. [CommandLineArgument]
+    */
+       
+       int n = StdIn.readInt(); // grid of size (n * n)
        int t = StdIn.readInt(); // number of trials
-
+       
        PercolationStats run = new PercolationStats(n, t);
-       StdOut.println("Mean: " + run.mean());
-       StdOut.println("Standard deviation: " + run.stddev());
-       StdOut.println("Confidence (low): " + run.confidenceLo());
-       StdOut.println("Confidence (hi): " + run.confidenceHi());
+       StdOut.println("mean                    = " + run.mean());
+       StdOut.println("stddev                  = " + run.stddev());
+       StdOut.println("95% confidence interval = ["
+                          + run.confidenceLo() + ", " + run.confidenceHi() + "]");
    }
 }
