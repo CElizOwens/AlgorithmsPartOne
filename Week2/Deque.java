@@ -1,5 +1,5 @@
 import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdIn;
+// import edu.princeton.cs.algs4.StdIn;
 import java.util.NoSuchElementException;
 import java.util.Iterator;
 
@@ -62,6 +62,7 @@ public class Deque<Item> implements Iterable<Item> {
     
    // add the item to the end (enqueue)
    public void addLast(Item item) {
+      if (isNull(item)) throw new IllegalArgumentException("Cannot add null item.");
       // adding reference for the ever-changing first node
       if (this.isEmpty()) {
          Node oldlast = last;
@@ -98,7 +99,7 @@ public class Deque<Item> implements Iterable<Item> {
 // 
    
    // is client argument 'null'?
-   public boolean isNull(Item item) {
+   private boolean isNull(Item item) {
       return item == null;
    }
    
@@ -111,7 +112,7 @@ public class Deque<Item> implements Iterable<Item> {
          last = null;
       }
       else { first = first.next; }      
-//      if (isEmpty()) last = null;
+      if (isEmpty()) last = null;
       n--;
       assert check();
       return item;
@@ -126,7 +127,7 @@ public class Deque<Item> implements Iterable<Item> {
          first = null;
       }
       else { last = last.previous; }
-//      if (isEmpty()) first = null;
+      if (isEmpty()) first = null;
       n--;
       assert check();
       return item;
@@ -166,7 +167,7 @@ public class Deque<Item> implements Iterable<Item> {
          for (Node x = first; x != null && numberOfNodes <= n; x = x.next) {
             numberOfNodes++;
          }
-         if (numberOfNodes != n ) return false;
+         if (numberOfNodes != n) return false;
          
          // check internal consistency of instance variable last
          Node lastNode = first;

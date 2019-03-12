@@ -65,8 +65,71 @@ Building a Randomized Queue using ResizingArrayQueue.
 
 			6pm
 			---
-All three programs are working/outputting correct results.
-- thinking the RandomizedQueue might be too slow,
-  and if, I can't really explain why.
+All three programs are working/outputting correct-ish results.
+ - The RandomizedQueue is too slow;
+   can't really explain why.
 
-To submission page.
+Submission grade: 68/100  (6:52pm)
+
+ - corrected all five checkstyle warnings (I think)
+
+Correctness of Deque:
+ - as of now, 14/16 passes; making edits now
+ - remaining to be fixed: Test 10 ('iterator()' failure)
+
+Correctness of RandomizedQueue:
+ - as of now, 0/18 passes.
+ - failed on operation 384 of 500 - dequeue() returned item 23,
+   but item 23 is no longer in randomized queue.
+ - time limit of 60 seconds was exceeded,
+   so not all tests could be completed.
+
+Correctness of Permutation:
+ - as of now, ALL TESTS PASSED!!
+ - except bonus: maximum queue size of k rather than n.
+
+Deque Memory usage (15/28): 
+ Tests 3a-e and 4a-e failures.
+ - inserting 2n+1 items and deleting n items
+ - Memory: 96.00 n - 8.00
+
+ - inserting n items and then deleting all but one item
+ - (should not grow with n or be too large of a constant)
+ - Memory after adding n = 2^i items: 71498.91
+
+ Tests 6a-b failures.
+   ******    {attempted to address this}    ******
+ - loitered objects: "loitering observed during
+   99 of 100 deletions"
+ - Perform random operations, checking for loitering
+   after each operation: low occurence, varied.
+ * uncommented out 'if (isEmpty()) first/last = null;'
+   in 'removeFirst()' and 'removeLast()' methods.
+
+
+ Test 7 failure.
+ - 256 random operations
+ - failed on trial 229 of 256
+ - when current size of Deque was 135 objects;
+ - the call to addFirst()
+ - caused a change in memory of 144 bytes
+ - any change of more than 96 bytes fails the test.
+
+RandomizedQueue memory usage: only 1 failure!!
+ Test 7b: Perform random operations,
+   checking for loitering after each operation.
+ - loitering detected after operation 27 of 200
+
+Timing RandomizedQueue (failed):
+    ******   {attempted to address this}   ******
+ Test 1: make n calls to enqueue() followed by n calls
+    to dequeue(); count calls to StdRandom.
+  - example: n = 10
+  - enqueue() and dequeue() should call StdRandom() at most 
+    once per item
+  - number of items = 10 - number of elementary StdRandom()
+    operations = 25
+
+RESUBMITTED, 10:12pm.
++1 point: Correctness of Deque (15/16)
+Newly failed a few tests in Timing RandomizedQueue.

@@ -1,5 +1,4 @@
 import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdRandom;
 import java.util.NoSuchElementException;
 import java.util.Iterator;
@@ -54,12 +53,10 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
    
    public Item dequeue() {                  // remove and return a random item
       if (isEmpty()) throw new NoSuchElementException("Queue underflow");
-      int num = 0;
-      while (!this.isEmpty()) {
-         num = StdRandom.uniform(q.length);
-         if (q[num] != null) {
-            break;
-         }
+      int num = StdRandom.uniform(q.length);
+      while (q[num] == null) {
+         if (num < q.length - 1) num++;
+         else num = 0;
       }
       
       Item item = q[num];
@@ -85,7 +82,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
       return new ArrayIterator();
    }
    
-   private class ArrayIterator implements Iterator<Item> {  //changed to private
+   private class ArrayIterator implements Iterator<Item> {  // changed to private
       private int i = 0;
       public boolean hasNext() { return i < n; }
       public void remove() { throw new UnsupportedOperationException(); }
