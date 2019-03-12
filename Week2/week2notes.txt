@@ -1,0 +1,72 @@
+Notes on Week 2 Algorithms Assignment
+=====================================
+
+*Run this week's java programs from the terminal:
+$ java-algs4 LinkedStack < tobe.txt
+$ java-algs4 Permutation 3 < input.txt
+
+You can compile from the terminal like this:
+$ javac-algs4 Permutation.java
+
+Now have LinkedStack, ResizingArrayStack...
+		 LinkedQueue and ResizingArrayQueue programs.
+
+
+
+>>>s> For both Stacks and Queues <<<<
+
+Linked list implementations.
+---------------------------
+
+constant time in worst case for all methods:
+- enqueue/push, dequeue/pop, size, peek, isEmpty
+
+
+
+Array implementations.
+---------------------
+
+constant amortized time:
+- enqueue/push, dequeue/pop
+constant time in worst case:
+- size, peek, isEmpty
+
+
+
+
+							Deque 							Randomized Queue
+							-----							----------------
+Non-iterator operations 	Constant worst-case time 		Constant amortized time
+Iterator constructor 		Constant worst-case time 		linear in current # of items
+Other iterator operations 	Constant worst-case time 		Constant worst-case time
+Non-iterator memory use 	Linear in current # of items 	Linear in current # of items
+Memory per iterator 		Constant 						Linear in current # of items
+
+
+
+Fri Mar 8, 6pm
+--------------
+
+Deque methods that have been tested:
+- addFirst, removeFirst, removeLast
+
+Next:
+- work on addLast
+
+[Done!]
+________________________________________________
+
+Mon Mar 11, 12pm
+----------------
+
+Building a Randomized Queue using ResizingArrayQueue.
+- modify dequeue() and sample()
+-- These two methods return items uniformly at random.
+
+			6pm
+			---
+All three programs are working/outputting correct results.
+- thinking the RandomizedQueue might be too slow,
+  and if, I can't really explain why.
+
+To submission page.
