@@ -194,5 +194,12 @@ Subsequent change made in Permutation:
 -------------------------------------
  - It now filters 'null' results.
 
-* These changes mean that dequeue() will get called more often. Probably not good.
+  [These changes mean that dequeue() will get called more often. Probably not good.]
 
+** New Submission: 8:46pm **
+- Yeah, wrong direction.
+
+Have now reverted back to the previous submission version,
+except now with resize() working correctly.
+
+** New Submission: 9:08pm **

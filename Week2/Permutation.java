@@ -11,19 +11,20 @@ public class Permutation {
          queue.enqueue(item);
       }
       while (n < k) {
-         // Not sure if this will be acceptable
-         String s = queue.dequeue();
-         if (s != null) {
-            StdOut.println(s);
-            n++;
-         }
-      }
-         
-         
-      // Original code, below, for this while loop.
-         
-//         StdOut.println(queue.dequeue());
-//         n++;
+         // This doesn't help the RandomizedQueue 'null' problem
+         // when RQ gets tested alone.
+//         String s = queue.dequeue();
+//         if (s != null) {
+//            StdOut.println(s);
+//            n++;
+//         }
 //      }
+         
+         
+      // Back to the original code, below, for this while loop.
+         
+         StdOut.println(queue.dequeue());
+         n++;
+      }
    }
 }

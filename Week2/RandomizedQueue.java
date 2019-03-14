@@ -67,15 +67,20 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
       
       // Maybe the below is what is 'not constant'.
       // Without it, null could be returned; problem? Yes...
-      // Permutation now has a filter for a return of 'null'.
-      // And nothing changes in the array if null is returned.
       
-      if (q[num] == null) return null;
+      // Don't know how to fix the returning of 'null'; @#%$!
+      // Ditching the Permutation modification below:
       
-//      while (q[num] == null) {
-//         if (num < q.length - 1) num++;
-//         else num = 0;
-//      }
+//      // Permutation now has a filter for a return of 'null'.
+//      // And nothing changes in the array if null is returned.
+      
+//      if (q[num] == null) return null;
+      
+      // Reinstating this filter; now with the resize() working correctly.
+      while (q[num] == null) {
+         if (num < q.length - 1) num++;
+         else num = 0;
+      }
       
       Item item = q[num];
       q[num] = null;      // to avoid loitering
