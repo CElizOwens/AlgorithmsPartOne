@@ -49,6 +49,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
    }
    
    public void enqueue(Item item) {         // add the item
+//      StdOut.println("Enqueue-ing " + item);
+      if (item == null) throw new IllegalArgumentException("Argument cannot be null");
       if (n == q.length) resize(2 * q.length);  // double array size if needed
       q[last++] = item;                         // add item
       if (last == q.length) last = 0;           // wrap-around
@@ -56,6 +58,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
    }
    
    public Item dequeue() {                  // remove and return a random item
+      
       if (isEmpty()) throw new NoSuchElementException("Queue underflow");
       
       // possible solution to reduce calls to 'StdRandom';
@@ -64,7 +67,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
       // includes only array indices that hold items?
       
       int num = StdRandom.uniform(n);
-      
+//      StdOut.println("n: " + n + " and Random num: " + num);
       // Maybe the below is what is 'not constant'.
       // Without it, null could be returned; problem? Yes...
       
@@ -83,9 +86,12 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 //      }
    
       Item item = q[num];
+//      StdOut.println("Item in q[" + num + "] : " + item);
       q[num] = q[n - 1];   // to fill in the gap
+//      StdOut.println("q[n - 1]: " + q[n - 1] + ". Being placed in q[" + num + "]");
       q[n - 1] = null;   // to avoid loitering
       n--;
+      last--;
       if (first == num) first++;
       if (first == q.length) first = 0;   // wrap-around
       

@@ -2,6 +2,21 @@ import edu.princeton.cs.algs4.StdOut;
 
 public class Unittest {
    public static void main(String[] args) {
+      RandomizedQueue<Integer> rand = new RandomizedQueue<Integer>();
+      StdOut.println("Empty? " + rand.isEmpty()); // true
+      StdOut.println("Size? " + rand.size()); // 0
+      StdOut.println("Enqueue-ing integer 48.");
+      rand.enqueue(48);
+      StdOut.println("Dequeue: " + rand.dequeue()); // 48
+      StdOut.println("Size? " + rand.size()); // 0
+      StdOut.println("Enqueue-ing integer 18.");
+      rand.enqueue(18);
+      StdOut.println("Size? " + rand.size());
+      StdOut.println("Dequeue: " + rand.dequeue());
+   }
+      
+      
+      
 //      int n = 0;
 //      Deque<Integer> ascend = new Deque<Integer>();
 //      while (n < 10) {
@@ -29,7 +44,8 @@ public class Unittest {
 //      StdOut.println(descend.removeFirst());
 //   }
       
-      RandomizedQueue<String> rand = new RandomizedQueue<String>();
+//      RandomizedQueue<String> rand = new RandomizedQueue<String>();
+      
 //      rand.enqueue("a");
 //      rand.enqueue("b");
 //      rand.enqueue("c");
@@ -37,19 +53,19 @@ public class Unittest {
 //      for (int x = 0; x < 10; x++) {
 //         StdOut.print(rand.sample() + " ");
 //      }
-      
-      int trials = 20;
-      for (int z = 0; z < trials; z++) {
-         rand.enqueue("a");
-         rand.enqueue("b");
-         rand.enqueue("c");
-         rand.enqueue("d");
-         StdOut.print(z + 1 + ". ");
-         while (!rand.isEmpty()) {
-            StdOut.print(rand.dequeue());
-         }
-         StdOut.println();
-      }
-   }
+//      
+//      int trials = 20;
+//      for (int z = 0; z < trials; z++) {
+//         rand.enqueue("a");
+//         rand.enqueue("b");
+//         rand.enqueue("c");
+//         rand.enqueue("d");
+//         StdOut.print(z + 1 + ". ");
+//         while (!rand.isEmpty()) {
+//            StdOut.print(rand.dequeue());
+//         }
+//         StdOut.println();
+//      }
+   
       
 }
