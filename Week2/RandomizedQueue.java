@@ -90,8 +90,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
       q[num] = q[n - 1];   // to fill in the gap
 //      StdOut.println("q[n - 1]: " + q[n - 1] + ". Being placed in q[" + num + "]");
       q[n - 1] = null;   // to avoid loitering
+      if (last == 0) last = n - 1;
+      else last--;
       n--;
-      last--;
       if (first == num) first++;
       if (first == q.length) first = 0;   // wrap-around
       

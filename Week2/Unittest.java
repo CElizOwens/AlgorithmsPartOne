@@ -11,8 +11,16 @@ public class Unittest {
       StdOut.println("Size? " + rand.size()); // 0
       StdOut.println("Enqueue-ing integer 18.");
       rand.enqueue(18);
+      StdOut.println("Enqueue-ing integer 25.");
+      rand.enqueue(25);
       StdOut.println("Size? " + rand.size());
       StdOut.println("Dequeue: " + rand.dequeue());
+      StdOut.println("Dequeue: " + rand.dequeue());
+      StdOut.println("Enqueue-ing integer 10.");
+      rand.enqueue(10);
+      StdOut.println("Size? " + rand.size());
+      StdOut.println("Dequeue: " + rand.dequeue());
+      StdOut.println("Size? " + rand.size());
    }
       
       

@@ -208,3 +208,9 @@ except now with resize() working correctly.
   the last item in the array as items in the middle get dequeued.
 
 ** New Submission: 9:42pm **
+ - 90/100 !!! PASSED
+
+ - added a missing IllegalArgumentException to catch null arguments to enqueue()
+
+** New Submission: 11:50pm **
+ - a few more submissions later; made some fixes to enqueue and dequeue
