@@ -142,3 +142,57 @@ Wed Mar 13, 2019 4:40pm
 For Deque:
  - Worked on dereferencing newly nullified nodes
    in 'removeFirst' and 'removeLast'.
+
+For RQ:
+ - Worked on reducing calls to StdRandom.
+
+
+**  New Submission. 5:20pm. **
+    -----------------------
+    Attempts: Eliminate loitering and excess memory usage in Deque.
+              Reduce calls to StdRandom in RandomizedQueue.
+
+>>>>>>>  Results:   74/100. (6 points shy of passing)  <<<<<<<
+
+Correctness and Memory of Permutation: Perfect Scores!!!
+
+Correctness of Deque: 16/16 !!!
+Timing of Deque: 103/103 !!!
+Memory analysis of Deque: 28/28 !!!  (loitering eliminated)
+
+Correctness of RQ: 0/18.
+  - dequeue() returned an item that was no longer in the queue. (?)
+  - "WARNING: the time limit of 60 seconds was exceeded,
+     so not all tests could be completed."
+
+Memory analysis of RQ: 74/75 !!! (same single failure).
+ Test 7b: Perform random operations,
+   checking for loitering after each operation.
+ - loitering detected after operation 15/16/26 of 200 (different trials)
+
+Timing of RQ: 62/67 (Test 1, StdRandom issue, fixed... I think).
+
+ - Test 6a-k: make n calls to enqueue() followed by n random calls
+   to enqueue(), sample(), dequeue(), isEmpty(), and size()
+   with probabilities (0.6, 0.1, 0.1, 0.1, 0.1)
+
+   - Failure: 512000 random method calls, 3.73 secs
+   - "Most likely one of your operations is not constant time."
+
+ - Test 4a-k: make n calls to enqueue() followed by n calls to dequeue()
+
+   - Failure: 256000 calls, 1.00 sec
+   - "Most likely one of your operations is not constant time."
+
+Changes made in RQ:
+------------------
+ - fixed while loop else statement in dequeue()
+ - allowed dequeue() to pass 'null' when a chosen item is null
+   in order to leave the array in tact
+
+Subsequent change made in Permutation:
+-------------------------------------
+ - It now filters 'null' results.
+
+* These changes mean that dequeue() will get called more often. Probably not good.
+

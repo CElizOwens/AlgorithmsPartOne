@@ -25,13 +25,17 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
       return n;
    }
    
+   // For some reason, the else statement of the while loop
+   // said 'first++', the same as the if statement.
+   // Changed it to 'first = 0'. Hopefully this fixes a lot!
+   
    private void resize(int capacity) {  // changed from public
       assert capacity >= n;
       Item[] temp = (Item[]) new Object[capacity];
       for (int i = 0; i < n; i++) {
          while (q[first] == null) {
             if (first < q.length - 1) first++;
-            else first++;
+            else first = 0;
             }
          temp[i] = q[first];
          if (first < q.length - 1) first++;
@@ -53,15 +57,25 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
    
    public Item dequeue() {                  // remove and return a random item
       if (isEmpty()) throw new NoSuchElementException("Queue underflow");
+      
       // possible solution to reduce calls to 'StdRandom';
       // but will this still be uniformly at random?
       // Is it necessary to have an parameter argument that
       // includes only array indices that hold items?
+      
       int num = StdRandom.uniform(q.length);
-      while (q[num] == null) {
-         if (num < q.length - 1) num++;
-         else num = 0;
-      }
+      
+      // Maybe the below is what is 'not constant'.
+      // Without it, null could be returned; problem? Yes...
+      // Permutation now has a filter for a return of 'null'.
+      // And nothing changes in the array if null is returned.
+      
+      if (q[num] == null) return null;
+      
+//      while (q[num] == null) {
+//         if (num < q.length - 1) num++;
+//         else num = 0;
+//      }
       
       Item item = q[num];
       q[num] = null;      // to avoid loitering

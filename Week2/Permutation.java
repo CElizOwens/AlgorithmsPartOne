@@ -11,8 +11,19 @@ public class Permutation {
          queue.enqueue(item);
       }
       while (n < k) {
-         StdOut.println(queue.dequeue());
-         n++;
+         // Not sure if this will be acceptable
+         String s = queue.dequeue();
+         if (s != null) {
+            StdOut.println(s);
+            n++;
+         }
       }
+         
+         
+      // Original code, below, for this while loop.
+         
+//         StdOut.println(queue.dequeue());
+//         n++;
+//      }
    }
 }
