@@ -49,7 +49,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
    }
    
    public void enqueue(Item item) {         // add the item
-      if (n == q.length) resize(2 * q.length);  // double array size in needed
+      if (n == q.length) resize(2 * q.length);  // double array size if needed
       q[last++] = item;                         // add item
       if (last == q.length) last = 0;           // wrap-around
       n++;
@@ -63,7 +63,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
       // Is it necessary to have an parameter argument that
       // includes only array indices that hold items?
       
-      int num = StdRandom.uniform(q.length);
+      int num = StdRandom.uniform(n);
       
       // Maybe the below is what is 'not constant'.
       // Without it, null could be returned; problem? Yes...
@@ -76,21 +76,25 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
       
 //      if (q[num] == null) return null;
       
-      // Reinstating this filter; now with the resize() working correctly.
-      while (q[num] == null) {
-         if (num < q.length - 1) num++;
-         else num = 0;
-      }
-      
+      // No longer using this filter; now with the resize() working correctly.
+//      while (q[num] == null) {
+//         if (num < q.length - 1) num++;
+//         else num = 0;
+//      }
+   
       Item item = q[num];
-      q[num] = null;      // to avoid loitering
+      q[num] = q[n - 1];   // to fill in the gap
+      q[n - 1] = null;   // to avoid loitering
       n--;
       if (first == num) first++;
       if (first == q.length) first = 0;   // wrap-around
-      while (q[first] == null && !this.isEmpty()) {
-         first++;
-         if (first == q.length) first = 0;   // wrap-around
-      }
+      
+      // Won't need this while loop now that there won't be gaps.
+      
+//      while (q[first] == null && !this.isEmpty()) {
+//         first++;
+//         if (first == q.length) first = 0;   // wrap-around
+//      }
       // shrink array size if necessary
       if (n > 0 && n == q.length/4) resize(q.length/2);
       return item;      

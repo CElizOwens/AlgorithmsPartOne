@@ -203,3 +203,8 @@ Have now reverted back to the previous submission version,
 except now with resize() working correctly.
 
 ** New Submission: 9:08pm **
+- back to 74/100
+- at Eric's suggestion, going to fill in array indices from
+  the last item in the array as items in the middle get dequeued.
+
+** New Submission: 9:42pm **
