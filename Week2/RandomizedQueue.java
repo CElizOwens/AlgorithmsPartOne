@@ -53,6 +53,10 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
    
    public Item dequeue() {                  // remove and return a random item
       if (isEmpty()) throw new NoSuchElementException("Queue underflow");
+      // possible solution to reduce calls to 'StdRandom';
+      // but will this still be uniformly at random?
+      // Is it necessary to have an parameter argument that
+      // includes only array indices that hold items?
       int num = StdRandom.uniform(q.length);
       while (q[num] == null) {
          if (num < q.length - 1) num++;

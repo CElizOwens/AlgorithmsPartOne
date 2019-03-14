@@ -33,10 +33,10 @@ public class Deque<Item> implements Iterable<Item> {
       return n;
    }
     
-   // add the item to the front (push)
+   // add the item to the head (push)
    public void addFirst(Item item) {
       if (isNull(item)) throw new IllegalArgumentException("Cannot add null item.");
-      // adding a reference to the ever-changing last node
+      // if this is the first item added
       if (this.isEmpty()) {
          Node oldfirst = first;
          first = new Node();
@@ -85,7 +85,8 @@ public class Deque<Item> implements Iterable<Item> {
          n++;
          assert check();
       }
-   }      
+   }
+   
 //      // original-ish version
 //      if (isNull(item)) throw new IllegalArgumentException("Cannot add null item.");
 //      Node oldlast = last;
@@ -111,7 +112,22 @@ public class Deque<Item> implements Iterable<Item> {
          first = null;
          last = null;
       }
-      else { first = first.next; }      
+      else {
+         first = first.next;
+         first.previous = null;   // dereferencing the old first node
+         
+// These next two lines, in 'removeFirst' and 'removeLast',
+// are not needed because 'oldfirst' and 'oldlast'
+// do not stay in memory.
+// They are only created and only exist in the context of
+// these methods when the methods get called.
+// They disappear when the method finishes.
+// The nodes 'first' and 'last' are permanent entities, as references,
+// because they were declared as class variables!!
+         
+//         oldfirst.previous = null;   // oldfirst is the same node as first here
+//         oldfirst = oldfirst.next;
+      }      
       if (isEmpty()) last = null;
       n--;
       assert check();
@@ -126,7 +142,14 @@ public class Deque<Item> implements Iterable<Item> {
          last = null;
          first = null;
       }
-      else { last = last.previous; }
+      else {
+         last = last.previous;
+         last.next = null;   // dereferencing the old last node
+         
+// See note above in 'removeFirst'.
+//         oldlast.next = null;   // oldlast is the same node as last here
+//         oldlast = oldlast.previous;
+      }
       if (isEmpty()) first = null;
       n--;
       assert check();

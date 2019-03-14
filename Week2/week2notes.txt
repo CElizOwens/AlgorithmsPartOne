@@ -34,13 +34,13 @@ constant time in worst case:
 
 
 
-							Deque 							Randomized Queue
-							-----							----------------
-Non-iterator operations 	Constant worst-case time 		Constant amortized time
-Iterator constructor 		Constant worst-case time 		linear in current # of items
-Other iterator operations 	Constant worst-case time 		Constant worst-case time
-Non-iterator memory use 	Linear in current # of items 	Linear in current # of items
-Memory per iterator 		Constant 						Linear in current # of items
+                            Deque 				                Randomized Queue
+                            -----					                ----------------
+Non-iterator operations     Constant worst-case time      Constant amortized time
+Iterator constructor        Constant worst-case time 	    Linear in current # of items
+Other iterator operations 	Constant worst-case time 		  Constant worst-case time
+Non-iterator memory usage   Linear in current # of items 	Linear in current # of items
+Memory per Iterator         Constant                      Linear in current # of items
 
 
 
@@ -88,7 +88,7 @@ Correctness of Permutation:
  - as of now, ALL TESTS PASSED!!
  - except bonus: maximum queue size of k rather than n.
 
-Deque Memory usage (15/28): 
+Deque Memory usage (15/28):    *** {edited removal methods, 3/13/2019} ***
  Tests 3a-e and 4a-e failures.
  - inserting 2n+1 items and deleting n items
  - Memory: 96.00 n - 8.00
@@ -99,6 +99,7 @@ Deque Memory usage (15/28):
 
  Tests 6a-b failures.
    ******    {attempted to address this}    ******
+   *****   {Made another attempt, 3/13/2019}   *****
  - loitered objects: "loitering observed during
    99 of 100 deletions"
  - Perform random operations, checking for loitering
@@ -127,9 +128,17 @@ Timing RandomizedQueue (failed):
   - example: n = 10
   - enqueue() and dequeue() should call StdRandom() at most 
     once per item
-  - number of items = 10 - number of elementary StdRandom()
-    operations = 25
+  - number of items = 10
+  - number of elementary StdRandom() operations = 25
 
 RESUBMITTED, 10:12pm.
 +1 point: Correctness of Deque (15/16)
 Newly failed a few tests in Timing RandomizedQueue.
+______________________________________________________________
+
+Wed Mar 13, 2019 4:40pm
+================
+
+For Deque:
+ - Worked on dereferencing newly nullified nodes
+   in 'removeFirst' and 'removeLast'.
