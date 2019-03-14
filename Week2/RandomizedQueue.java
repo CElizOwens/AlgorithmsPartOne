@@ -113,10 +113,12 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
    }
    
    public Iterator<Item> iterator() {       // return an independent iterator over items in random order
+      StdRandom.shuffle(q, 0, n);
       return new ArrayIterator();
    }
    
    private class ArrayIterator implements Iterator<Item> {  // changed to private
+
       private int i = 0;
       public boolean hasNext() { return i < n; }
       public void remove() { throw new UnsupportedOperationException(); }

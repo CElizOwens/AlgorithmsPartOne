@@ -214,3 +214,8 @@ except now with resize() working correctly.
 
 ** New Submission: 11:50pm **
  - a few more submissions later; made some fixes to enqueue and dequeue
+
+** New Submission: 1:14am **
+ - added StdRandom.shuffle(q, 0, n) to iterator()
+ - this is for the last three points I missed in the tests
+   for RQ correctness
