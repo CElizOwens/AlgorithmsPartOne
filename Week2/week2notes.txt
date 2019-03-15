@@ -219,3 +219,11 @@ except now with resize() working correctly.
  - added StdRandom.shuffle(q, 0, n) to iterator()
  - this is for the last three points I missed in the tests
    for RQ correctness
+_______________________________________________________
+
+Mar 15, 2019, 2:56pm
+
+** New Submission: ~3:00pm **
+ - modified ArrayIterator(); added a constructor
+ - constructs its own independent Item[]
+

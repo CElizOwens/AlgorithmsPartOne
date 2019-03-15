@@ -113,19 +113,26 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
    }
    
    public Iterator<Item> iterator() {       // return an independent iterator over items in random order
-      StdRandom.shuffle(q, 0, n);
+      // **could do 'q = q[0:n]' instead of the change in 'public Item next()'?
+      // **the above would change 'q' itself, though...
       return new ArrayIterator();
    }
    
    private class ArrayIterator implements Iterator<Item> {  // changed to private
-
+      private Item[] r;
+      public ArrayIterator() {               // construct a copy of randomized queue
+         StdRandom.shuffle(q, 0, n);
+         r = (Item[]) new Object[n];
+         for (int i = 0; i < n; i++)
+            r[i] = q[i];
+      }
       private int i = 0;
       public boolean hasNext() { return i < n; }
       public void remove() { throw new UnsupportedOperationException(); }
       
       public Item next() {
          if (!hasNext()) throw new NoSuchElementException();
-         Item item = q[(i + first) % q.length];
+         Item item = r[(i + first) % n];  // **changed '% q.length' to '% n'
          i++;
          return item;
       }

@@ -3,14 +3,12 @@ import edu.princeton.cs.algs4.StdOut;
 public class Unittest {
    public static void main(String[] args) {
       RandomizedQueue<Integer> rand = new RandomizedQueue<Integer>();
-      rand.enqueue(0);
-      rand.enqueue(1);
-      rand.enqueue(2);
-      rand.enqueue(3);
-//      rand.enqueue(4);
-//      rand.enqueue(5);
-//      rand.enqueue(6);
+      for (int p = 0; p < 10; p++) {
+         rand.enqueue(p);
+      }
+
       for (Integer b : rand) {
+         StdOut.print(b + " ");
          for (Integer y : rand) {
             StdOut.print(y);
          }
