@@ -1,0 +1,17 @@
+Week3
+=====
+
+>> Collinear Points <<
+
+
+In folder ~/Desktop/AlgorithmsPartOne/Week3:
+--------------------------------------
+Zip file containing test clients:
++ Downloads/collinear.zip
+
++ Created files 'Points.java' and 'LineSegment.java'
++ Included this file, 'week3notes.txt'
+--------------------------------------
+
+'LineSegment.java' is complete as downloaded.
+'Point.java' requires additional code.
