@@ -1,4 +1,5 @@
 import edu.princeton.cs.algs4.StdOut;
+import java.util.Arrays;
 
 public class Pointtests {
 
@@ -12,6 +13,9 @@ public class Pointtests {
 	    Point sixth = new Point(6, 3);
 	    Point seventh = new Point(4, 4);
 	    Point eighth = new Point(4, 2);
+	    Point ninth = new Point(6, 3);
+
+	    Object[] night = new Object[]{second, third};
 
 		// Test 'compareTo()'
 	 //    StdOut.println(first.toString() + second.toString());
@@ -31,6 +35,11 @@ public class Pointtests {
 	    StdOut.println(first.slopeTo(fifth) + ": answer is +0.0");
 	    StdOut.println(first.slopeTo(seventh) + ": answer is a valid slope value");
 	    StdOut.println(first.slopeTo(eighth) + ": answer is a valid slope value");
+
+	    // Test 'slopeOrder()'
+		StdOut.println(first.slopeOrder().compare(second, fifth) + ": answer is -1");
+		StdOut.println(first.slopeOrder().compare(third, fifth) + ": answer is 1");
+		StdOut.println(first.slopeOrder().compare(sixth, ninth) + ": answer is 0");
 
 	}
 }
