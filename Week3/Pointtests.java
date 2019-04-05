@@ -10,8 +10,8 @@ public class Pointtests {
 	public static void main(String[] args) {
 
 
-	 //    Point first = new Point(5, 3);
-	 //    Point second = new Point(5, 3);
+	    // Point first = new Point(5, 3);
+	    // Point second = new Point(5, 3);
 	 //    Point third = new Point(5, 4);
 	 //    Point fourth = new Point(5, 2);
 	 //    Point fifth = new Point(4, 3);
@@ -19,6 +19,8 @@ public class Pointtests {
 	 //    Point seventh = new Point(4, 4);
 	 //    Point eighth = new Point(4, 2);
 	 //    Point ninth = new Point(6, 3);
+
+	    // if (first.compareTo(second) == 0) throw new IllegalArgumentException("Repeated point");
 
 
 	 //    Point tenth = new Point(6, 4);
@@ -84,14 +86,19 @@ public class Pointtests {
 	    // print and draw the line segments
 	    // This can test both Brute and Fast:
 
-		// BruteCollinearPoints collinear = new BruteCollinearPoints(points);
-	    FastCollinearPoints collinear = new FastCollinearPoints(points);
+		BruteCollinearPoints collinear = new BruteCollinearPoints(points);
+	    // FastCollinearPoints collinear = new FastCollinearPoints(points);
 
 	    for (LineSegment segment : collinear.segments()) {
-        	StdOut.println(segment);
+        	StdOut.println("=" + segment);
 	        segment.draw();
 		}
 		StdDraw.show();
+
+	    // // my test for FCP.segment()
+	    // StdOut.println("");
+	    // StdOut.println("Answer:");
+	    // StdOut.println(collinear.segments().toString());
 
 
 /*

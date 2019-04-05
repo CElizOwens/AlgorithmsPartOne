@@ -19,7 +19,7 @@ public class BruteCollinearPoints {
 	    		for (int k = j + 1; k < points.length - 1; k++) {
 	    			for (int l = k + 1; l < points.length; l++) {
 				    	if (points[l] == null) throw new IllegalArgumentException("Cannot be null");
-				    	if (points[l] == points[i] || points[l] == points[j] || points[l] == points[k]) {
+				    	if (points[l].compareTo(points[i]) == 0 || points[l].compareTo(points[j]) == 0 || points[l].compareTo(points[k]) == 0) {
 				    		throw new IllegalArgumentException("Repeated point");
 				    	}
 				    	if (points[i].slopeTo(points[j]) == (points[i].slopeTo(points[k]))) {

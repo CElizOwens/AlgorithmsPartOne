@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import edu.princeton.cs.algs4.StdOut;
 
 public class FastCollinearPoints {
 	private Point[] pointholder;
@@ -13,6 +14,8 @@ public class FastCollinearPoints {
 
 
     public FastCollinearPoints(Point[] points) {   // finds all line segments containing 4 or more points
+    	if (points == null) throw new IllegalArgumentException("Must not be null");
+
     	slopeholder = new Point[points.length - 1];
     	pointholder = new Point[points.length - 1];
     	shcounter = 0;
@@ -22,12 +25,14 @@ public class FastCollinearPoints {
 
 		for (int n = 0; n < points.length; n++) {
 			for (int s = 0; s < points.length; s++) {
+				if (points[s] == null) throw new IllegalArgumentException("Can not be null");
 				if (s == n) continue;  // same index in points array
 				// tests for duplicate points
-				if (points[s] == points[n]) throw new IllegalArgumentException("Repeated point");
+				if (points[n].compareTo(points[s]) == 0) throw new IllegalArgumentException("Repeated point");
 				pointholder[phcounter] = points[s];
 				phcounter++;
 			}
+			phcounter = 0;
 			Arrays.sort(pointholder, points[n].slopeOrder());
 
 			for (int x = 1; x < pointholder.length; x++) {
@@ -56,17 +61,35 @@ public class FastCollinearPoints {
 	    			// Well, 'slopeholder' is not ordered by point.
 	    			Arrays.sort(sorted); // sorting with point n
 					segs[segscounter] = new LineSegment(sorted[0], sorted[shcounter]); // includes point n
+					
+					// // test
+					// StdOut.println("Line segment " + (segscounter + 1) + ": " + segs[segscounter]);
+
 					segscounter++;
+					
+					// // test
+					// StdOut.println(segscounter + " segments so far");
+					
 					shcounter = 0;
 				}
 			}
-			if (segs.length > 1) {
-				Arrays.sort(segs);
-				for (int s = 1; s < segs.length; s++) {
-					if (segs[s] == segs[s - 1]) {
-						segs[s] = null;
-						segscounter--;
-					}
+		}
+		// StdOut.println(segscounter + ": number of segments before eliminating duplicates");
+
+		// for (LineSegment seg : segs) {
+		// 	StdOut.println(seg);
+		// }
+
+		// boolean checksegs = segs[0] == segs[1];
+		// StdOut.println("First and second: " + checksegs);
+
+
+		if (segscounter > 1) {
+			// Arrays.sort(segs);
+			for (int s = 1; s < segs.length; s++) {
+				if (segs[s] != null && segs[s] == segs[s - 1]) {
+					segs[s - 1] = null;
+					segscounter--;
 				}
 			}
 		}
@@ -86,6 +109,7 @@ public class FastCollinearPoints {
   				resultcounter++;
   			}
   		}
+  		// StdOut.println(result[0] + " " + result[1]);
   		return result;
 	}
 

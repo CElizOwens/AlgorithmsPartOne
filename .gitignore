@@ -1,3 +1,4 @@
+.DS_Store
 mediumTale.txt
 permutation10.txt
 permutation4.txt
@@ -6,6 +7,7 @@ permutation6.txt
 permutation8.txt
 tale.txt
 tinyTale.txt
+Week3/.DS_Store
 Week3/.idea/
 Week3/input6.txt
 Week3/input8.txt
